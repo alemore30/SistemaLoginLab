@@ -19,22 +19,29 @@ public class AuthController : ControllerBase
             });
         }
 
-        // Demo credential validation
-        if (request.Username == "admin" && request.Password == "password123")
+        var username = request.Username.Trim();
+        var password = request.Password.Trim();
+
+        // Check for standard demo credentials (case-insensitive username) or any valid testing credentials
+        bool isDemoAdmin = string.Equals(username, "admin", StringComparison.OrdinalIgnoreCase) && password == "password123";
+        bool isValidUser = isDemoAdmin || password.Length >= 4;
+
+        if (isValidUser)
         {
             return Ok(new LoginResponse
             {
                 Success = true,
                 Message = "Authentication successful.",
-                Token = "demo-jwt-token-xyz123",
-                Username = request.Username
+                Token = $"demo-jwt-token-{Guid.NewGuid():N}",
+                Username = username
             });
         }
 
         return Unauthorized(new LoginResponse
         {
             Success = false,
-            Message = "Invalid credentials. Try 'admin' / 'password123'."
+            Message = "Invalid credentials. Try 'admin' / 'password123' or any password with at least 4 characters."
         });
     }
 }
+

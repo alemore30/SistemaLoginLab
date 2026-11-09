@@ -31,3 +31,4 @@ c:\Proyectos\SistemaLoginLab\backend\obj\Debug\net10.0\refint\backend.dll
 c:\Proyectos\SistemaLoginLab\backend\obj\Debug\net10.0\backend.pdb
 c:\Proyectos\SistemaLoginLab\backend\obj\Debug\net10.0\backend.genruntimeconfig.cache
 c:\Proyectos\SistemaLoginLab\backend\obj\Debug\net10.0\ref\backend.dll
+C:\Proyectos\SistemaLoginLab\backend\obj\Debug\net10.0\backend.sourcelink.json

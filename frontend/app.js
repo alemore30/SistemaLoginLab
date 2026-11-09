@@ -2,13 +2,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const loginForm = document.getElementById('loginForm');
     const responseMessage = document.getElementById('responseMessage');
 
+    // Adjust port to match backend (e.g. 5048 or 5000)
     const API_BASE_URL = 'http://localhost:5048';
 
     loginForm.addEventListener('submit', async (event) => {
         event.preventDefault();
 
-        const usernameInput = document.getElementById('alexander');
+        const usernameInput = document.getElementById('username');
         const passwordInput = document.getElementById('password');
+
+        if (!usernameInput || !passwordInput) {
+            console.error('Form inputs not found');
+            return;
+        }
 
         const requestData = {
             username: usernameInput.value.trim(),
@@ -18,8 +24,10 @@ document.addEventListener('DOMContentLoaded', () => {
         responseMessage.className = 'message';
         responseMessage.style.display = 'none';
 
+        const baseUrl = API_BASE_URL.replace(/\/$/, '');
+
         try {
-            const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
+            const response = await fetch(`${baseUrl}/api/auth/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -37,9 +45,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 responseMessage.className = 'message error';
             }
         } catch (error) {
-            responseMessage.textContent = 'Unable to connect to the backend server. Make sure the API is running at http://localhost:5000.';
+            responseMessage.textContent = `Unable to connect to the backend server at ${baseUrl}. Make sure the API is running.`;
             responseMessage.className = 'message error';
             console.error('Login request error:', error);
         }
     });
 });
+
