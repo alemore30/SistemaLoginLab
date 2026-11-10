@@ -28,8 +28,8 @@ jobs:
         run: |
           dotnet restore
           dotnet test --collect:"XPlat Code Coverage"
-         working-directory: ./backend
-         
+        
+
       # ---- SECCIÓN FRONTEND ANGULAR + JEST ----
       - name: Configurar Node.js
         uses: actions/setup-node@v4
