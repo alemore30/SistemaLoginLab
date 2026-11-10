@@ -1,0 +1,12 @@
+{
+  "name": "sistema-login-lab",
+  "version": "1.0.0",
+  "scripts": {
+    "test": "jest --coverage --watchAll=false"
+  },
+  "devDependencies": {
+    "@angular-builders/jest": "^22.0.1",
+    "@types/jest": "^30.0.0",
+    "jest": "^30.5.2"
+  }
+}

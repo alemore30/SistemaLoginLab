@@ -1,0 +1,42 @@
+name: Pipeline Laboratorio - Angular y C#
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  build-and-test:
+    name: Validacion Automatica
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clonar repositorio
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # ---- SECCIÓN BACKEND C# ----
+      - name: Configurar .NET Core
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0'
+
+      - name: Restaurar y Validar C#
+        run: |
+          dotnet restore
+          dotnet test --collect:"XPlat Code Coverage"
+
+      # ---- SECCIÓN FRONTEND ANGULAR + JEST ----
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Ejecutar pruebas Jest
+        run: npm run test
